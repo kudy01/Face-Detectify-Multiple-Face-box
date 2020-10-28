@@ -2,9 +2,6 @@ import React from 'react';
 import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, boxes }) =>{
-	if({imageUrl}===""){
-					console.log("error")
-				}
 	return (
 		<div className='center ma'>
 			<div className='absolute mt2'/*To make the image size good and small*/>

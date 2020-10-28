@@ -101,7 +101,6 @@ class App extends Component {
             })
             .catch(console.log);
         }
-        console.log(response)
         this.displayFaceBoxes(this.calculateFaceLocations(response))
       })
       .catch((err) => {
