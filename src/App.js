@@ -8,6 +8,8 @@ import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
+import Modal from './components/Modal/Modal';
+import Profile from './components/Profile/Profile';
 
 const ParticlesOptions = {
   particles: {
@@ -25,14 +27,17 @@ const initialState = {
       input: '',
       imageUrl: '',
       boxes: [],
-      route: 'signin',
-      isSignedIn: false,
+      route: 'signin', //signin
+      isSignedIn: false, //false
+      isProfileOpen: false,
       user: {
         id: '',
         name: '',
         email: '',
         entries: 0,
-        joined: ''
+        joined: '',
+        occupation: '',
+        age: ''
       }
 };
 
@@ -48,7 +53,7 @@ class App extends Component {
       name: data.name,
       email: data.email,
       entries: data.entries,
-      joined: data.joined
+      joined: data.joined,
       }})
   }
 
@@ -111,20 +116,31 @@ class App extends Component {
   
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState(initialState)
+      return this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
     this.setState({route: route});
   }
 
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isProfileOpen: !prevState.isProfileOpen
+    }))
+  }
   render(){
   return (
     <div className="App">
       <Particles className='particles'
         params={ParticlesOptions}
       />        
-      <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
+      <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} toggleModal={this.toggleModal}/>
+        { this.state.isProfileOpen && 
+          <Modal>
+            <Profile isProfileOpen={this.state.isProfileOpen} toggleModal={this.toggleModal} user={this.state.user} loadUser={this.loadUser}/>
+          </Modal>
+        }  
       { this.state.route === 'home' 
         ? <div>
             <Logo />

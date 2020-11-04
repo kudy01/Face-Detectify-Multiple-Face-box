@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './SignIn.css'
 
 class Signin extends React.Component{
 	constructor(props){
@@ -40,7 +40,7 @@ class Signin extends React.Component{
 
 	render() {
 		return (
-			<article className="br3 ba mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+			<article className="wid ba br3 mv4 mw6 shadow-5 center">
 				<main className="pa4 black-80">
 				  <div className="measure">
 				    <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -49,7 +49,7 @@ class Signin extends React.Component{
 				        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
 				        <input 
 				        	onChange={this.onEmailChange} 
-				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+				        	className="hover-black pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 				        	type="email" 
 				        	name="email-address"  
 				        	id="email-address" />
@@ -58,7 +58,7 @@ class Signin extends React.Component{
 				        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 				        <input 
 					        onChange={this.onPasswordChange} 
-					        className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+					        className="hover-black b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 					        type="password" 
 					        name="password"  
 					        id="password" />
