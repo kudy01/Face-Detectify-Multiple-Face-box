@@ -18,7 +18,7 @@ class Signin extends React.Component{
 	}
 
 	saveAuthTokenInSession = (token) => {
-		window.localStorage.setItem('token', token)
+		window.sessionStorage.setItem('token', token)
 	}
 
 	onSubmitSignIn = () => {
