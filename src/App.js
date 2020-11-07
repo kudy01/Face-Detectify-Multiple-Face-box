@@ -166,6 +166,13 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
+      fetch('http://localhost:3000/signout', {
+        method: 'delete',
+        headers: {
+              'Content-Type': 'application/json', 
+              'Authorization': window.sessionStorage.getItem('token')
+            },
+        })
       this.removeSessionToken()
       return this.setState(initialState)
     } else if (route === 'home') {
