@@ -23,10 +23,16 @@ class Register extends React.Component {
 		this.setState({password: event.target.value})
 	}
 
+	saveAuthTokenInSession = (token) => {
+		window.sessionStorage.setItem('token', token)
+	}
 	onSubmitSignIn = () => {
 		fetch('http://localhost:3000/register', {
 			method: 'post',
-			headers: {'Content-Type': 'application/json'},
+			headers: {
+	          'Content-Type': 'application/json', 
+	          'Authorization': window.sessionStorage.getItem('token')
+	        },
 			body: JSON.stringify({
 				email: this.state.email,
 				password: this.state.password,
@@ -34,16 +40,30 @@ class Register extends React.Component {
 			})
 		})
 			.then(response => response.json())
-			.then(user => {
-				if (user.id)
-					{
-						this.props.loadUser(user);
-						this.props.onRouteChange('home');
-					}
-				else{
-					alert("Incorrect form of submission")
-				}
-			})
+			.then(data => { //data contains the id and token from backend
+				console.log(data)
+		        if(data.userId && data.success === 'true'){
+		          this.saveAuthTokenInSession(data.token)
+		          fetch(`http://localhost:3000/profile/${data.userId}`,{
+			        method: 'get',
+			        headers: {
+			          'Content-Type': 'application/json', 
+			          'Authorization': data.token
+			        }            
+			        })
+			          .then(response=> response.json())
+			          .then(user => {
+			            if(user && user.email){
+			              this.props.loadUser(user)
+			              this.props.onRouteChange('home')
+			            }
+			          })
+						.catch(console.log)
+		        }
+		        else{
+		        	alert("Incorrect form of submission")
+		        }
+		      })
 	}
 
 	render(){
